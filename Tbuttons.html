@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phone Toggles </title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      background-color: #f5f5f5; /* Smoke grey */
+    }
+
+    .btn-toggle {
+      position: relative;
+      width: 70px;
+      height: 40px;
+      background-color: #ddd;
+      border: none;
+      border-radius: 50px;
+      transition: background-color 0.3s ease-in-out;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .btn-toggle.active {
+      background-color: red;
+    }
+
+    .btn-toggle .icon {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      font-size: 18px;
+      transition: all 0.3s ease-in-out;
+      color: white; /* Brighter font color */
+    }
+
+    .btn-toggle.active .icon {
+      left: 45px;
+    }
+
+    .btn-label {
+      font-weight: bold;
+      color: #333;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .brightness-control {
+      margin-top: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .brightness-indicator {
+      width: 70%;
+      height: 20px;
+      background-color: #ddd;
+      border-radius: 10px;
+      margin: 0 10px;
+      position: relative;
+    }
+
+    .brightness-level {
+      background-color: yellow;
+      height: 100%;
+      width: 50%; /* Default brightness level at 50% */
+      border-radius: 10px;
+      transition: width 0.3s ease-in-out;
+    }
+
+    .brightness-icon {
+      font-size: 24px;
+      color: #333;
+    }
+
+    /* Live time and date */
+    .live-time {
+      position: fixed;
+      top: 10px;
+      right: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .live-date {
+      font-size: 16px;
+      color: #555;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Live Time and Date -->
+<div class="live-time" id="live-time">
+  <!-- Time will be inserted here -->
+  <div id="time"></div>
+  <div id="date"></div>
+</div>
+
+<div class="container mt-5">
+  <h3 class="text-center mb-4">Phone Toggles with Brightness Control</h3>
+
+  <!-- First Row -->
+  <div class="row text-center mb-3">
+    <div class="col-3">
+      <button type="button" class="btn-toggle" id="wifi-toggle">
+        <i class="fas fa-wifi icon"></i>
+      </button>
+      <br><span class="btn-label">Wi-Fi</span>
+    </div>
+    <div class="col-3">
+      <button type="button" class="btn-toggle" id="data-toggle">
+        <i class="fas fa-signal icon"></i>
+      </button>
+      <br><span class="btn-label">Mobile Data</span>
+    </div>
+    <div class="col-3">
+      <button type="button" class="btn-toggle" id="bluetooth-toggle">
+        <i class="fas fa-bluetooth icon"></i>
+      </button>
+      <br><span class="btn-label">Bluetooth</span>
+    </div>
+    <div class="col-3">
+      <button type="button" class="btn-toggle" id="hotspot-toggle">
+        <i class="fas fa-wifi icon"></i>
+      </button>
+      <br><span class="btn-label">Hotspot</span>
+    </div>
+  </div>
+
+  <!-- Second Row -->
+  <div class="row text-center mb-3">
+    <div class="col-3">
+      <button type="button" class="btn-toggle" id="flashlight-toggle">
+        <i class="fas fa-lightbulb icon"></i>
+      </button>
+      <br><span class="btn-label">Flashlight</span>
+    </div>
+    <div class="col-3">
+      <button type="button" class="btn-toggle" id="rotate-toggle">
+        <i class="fas fa-sync-alt icon"></i>
+      </button>
+      <br><span class="btn-label">Auto-Rotate</span>
+    </div>
+    <div class="col-3">
+      <button type="button" class="btn-toggle" id="power-toggle">
+        <i class="fas fa-battery-half icon"></i>
+      </button>
+      <br><span class="btn-label">Power Saving</span>
+    </div>
+    <div class="col-3">
+      <button type="button" class="btn-toggle" id="airplane-toggle">
+        <i class="fas fa-plane icon"></i>
+      </button>
+      <br><span class="btn-label">Airplane Mode</span>
+    </div>
+  </div>
+
+  <!-- Third Row -->
+  <div class="row text-center mb-3">
+    <div class="col-3">
+      <button type="button" class="btn-toggle" id="location-toggle">
+        <i class="fas fa-map-marker-alt icon"></i>
+      </button>
+      <br><span class="btn-label">Location</span>
+    </div>
+    <div class="col-3">
+      <button type="button" class="btn-toggle" id="screen-toggle">
+        <i class="fas fa-video icon"></i>
+      </button>
+      <br><span class="btn-label">Screen Recording</span>
+    </div>
+    <div class="col-3">
+      <button type="button" class="btn-toggle" id="eye-comfort-toggle">
+        <i class="fas fa-eye icon"></i>
+      </button>
+      <br><span class="btn-label">Eye Comfort</span>
+    </div>
+    <div class="col-3">
+      <button type="button" class="btn-toggle" id="otg-toggle">
+        <i class="fas fa-usb icon"></i>
+      </button>
+      <br><span class="btn-label">OTG</span>
+    </div>
+  </div>
+
+  <!-- Fourth Row -->
+  <div class="row text-center mb-3">
+    <div class="col-3">
+      <button type="button" class="btn-toggle" id="vpn-toggle">
+        <i class="fas fa-lock icon"></i>
+      </button>
+      <br><span class="btn-label">VPN</span>
+    </div>
+    <div class="col-3">
+      <button type="button" class="btn-toggle" id="dnd-toggle">
+        <i class="fas fa-moon icon"></i>
+      </button>
+      <br><span class="btn-label">Do Not Disturb</span>
+    </div>
+    <div class="col-3">
+      <button type="button" class="btn-toggle" id="camera-toggle">
+        <i class="fas fa-camera icon"></i>
+      </button>
+      <br><span class="btn-label">Camera Access</span>
+    </div>
+    <div class="col-3">
+      <button type="button" class="btn-toggle" id="microphone-toggle">
+        <i class="fas fa-microphone icon"></i>
+      </button>
+      <br><span class="btn-label">Microphone Access</span>
+    </div>
+  </div>
+
+  <!-- Fifth Row -->
+  <div class="row text-center">
+    <div class="col-3">
+      <button type="button" class="btn-toggle" id="dark-mode-toggle">
+        <i class="fas fa-adjust icon"></i>
+      </button>
+      <br><span class="btn-label">Dark Mode</span>
+    </div>
+    <div class="col-3">
+      <button type="button" class="btn-toggle" id="focus-mode-toggle">
+        <i class="fas fa-bullseye icon"></i>
+      </button>
+      <br><span class="btn-label">Focus Mode</span>
+    </div>
+  </div>
+
+  <!-- Brightness Control -->
+  <div class="brightness-control">
+    <i class="fas fa-sun brightness-icon" id="brightness-decrease"></i>
+    <div class="brightness-indicator">
+      <div class="brightness-level" id="brightness-level"></div>
+    </div>
+    <i class="fas fa-sun brightness-icon" id="brightness-increase"></i>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+<script>
+  // Toggle animation functionality
+  document.querySelectorAll('.btn-toggle').forEach(button => {
+    button.addEventListener('click', function () {
+      this.classList.toggle('active');
+    });
+  });
+
+  // Live time and date update
+  function updateTime() {
+    const now = new Date();
+    const timeElement = document.getElementById('time');
+    const dateElement = document.getElementById('date');
+
+    const optionsTime = { hour: '2-digit', minute: '2-digit' };
+    const optionsDate = { weekday: 'long', month: 'short', day: 'numeric' };
+
+    timeElement.textContent = now.toLocaleTimeString([], optionsTime);
+    dateElement.textContent = now.toLocaleDateString([], optionsDate);
+  }
+
+  setInterval(updateTime, 1000);
+  updateTime(); // Initial call
+
+  // Brightness control functionality
+  const brightnessLevel = document.getElementById('brightness-level');
+  let brightness = 50; // Initial brightness level
+
+  document.getElementById('brightness-increase').addEventListener('click', () => {
+    if (brightness < 100) {
+      brightness += 10;
+      brightnessLevel.style.width = `${brightness}%`;
+    }
+  });
+
+  document.getElementById('brightness-decrease').addEventListener('click', () => {
+    if (brightness > 0) {
+      brightness -= 10;
+      brightnessLevel.style.width = `${brightness}%`;
+    }
+  });
+</script>
+
+</body>
+</html>
